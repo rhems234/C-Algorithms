@@ -2,33 +2,72 @@
 
 using namespace std;
 
-int main()
+void sieve(int n)
 {
+	// 특정한 숫자의 제곱근까지만 약수의 여부를 검증
+	int* arr = new int[n + 1];
 
-#pragma region 유클리드 호제법
-	// 2개의 자연수 또는 정식의 최대 공약수를 구하는 방식으로
-	// 두 수가 서로 상대방 수를 나누어서 원하는 수를 얻어내는 알고리즘입니다.
-
-	int x = 24;
-	int y = 36;
-	int z = 0;
-
-	/*while (y != 0)
+	for (int i = 0; i <= n; i++)
 	{
-		z = x % y;
-		x = y;
-		y = z;
-	}*/
+		arr[i] = 1;
+	}
 
-	for (int i = 1; i <= x && i <= y; i++)
+	arr[0] = arr[1] = 0;
+	for (int i = 2; i <= sqrt(n); i++)
 	{
-		if (x % i == 0 && y % i == 0)
+		if (arr[i] == 1)
 		{
-			z = i;
+			for (int j = i * i; j <= n; j += i)
+			{
+				arr[j] = 0;
+			}
 		}
 	}
 
-	cout << "Greatest Common Divisor :  : " << x;
+	for (int i = 2; i <= n; i++)
+	{
+		if (arr[i] == 1)
+		{
+			cout << i << " " << endl;
+		}
+	}
+
+	delete[] arr;
+}
+
+int main()
+{
+#pragma region 에라토스테네스의 체
+	/*int arr[20];
+	int size = sizeof(arr) / sizeof(arr[0]);
+
+	for (int i = 2; i < size; i++)
+	{
+		arr[i] = i;
+	}
+
+	for (int i = 2; i < size; i++)
+	{
+		int j;
+		for (j = 2; j < i; j++)
+		{
+			if (arr[i] % j == 0)
+			{
+				break;
+			}
+		}
+
+		if (j == i)
+		{
+			cout << arr[i] << endl;
+		}
+
+	}*/
+#pragma endregion
+
+#pragma region 에라토스테네스의 체 2
+
+	sieve(16);
 
 #pragma endregion
 
