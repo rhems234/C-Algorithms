@@ -2,74 +2,41 @@
 
 using namespace std;
 
-void sieve(int n)
+int max(int list[], int left, int right)
 {
-	// 특정한 숫자의 제곱근까지만 약수의 여부를 검증
-	int* arr = new int[n + 1];
-
-	for (int i = 0; i <= n; i++)
+	if (left == right)
 	{
-		arr[i] = 1;
+		return list[left];
 	}
 
-	arr[0] = arr[1] = 0;
-	for (int i = 2; i <= sqrt(n); i++)
-	{
-		if (arr[i] == 1)
-		{
-			for (int j = i * i; j <= n; j += i)
-			{
-				arr[j] = 0;
-			}
-		}
-	}
+	int mid = (left + right) / 2;
 
-	for (int i = 2; i <= n; i++)
-	{
-		if (arr[i] == 1)
-		{
-			cout << i << " " << endl;
-		}
-	}
+	int left_index = max(list, left, mid);
+	int right_index = max(list, mid + 1, right);
 
-	delete[] arr;
+	return (left_index > right_index) ? left_index : right_index;
 }
 
 int main()
 {
-#pragma region 에라토스테네스의 체
-	/*int arr[20];
-	int size = sizeof(arr) / sizeof(arr[0]);
+#pragma region 분할 정복
+	// 주어진 2개 이상의 부분으로 문제를 나눈 뒤 각 부분
+	// 문제에 대한 답을 재귀로 호출하여 계산한 다음, 그
+	// 답으로부터 전체 문제의 답을 계산한는 알고리즘입니다.
 
-	for (int i = 2; i < size; i++)
-	{
-		arr[i] = i;
-	}
+	// 분할 ( Dived ) : 주어진 문제를 두 개 혹은 그 이상의 형식으로 나눈다.
 
-	for (int i = 2; i < size; i++)
-	{
-		int j;
-		for (j = 2; j < i; j++)
-		{
-			if (arr[i] % j == 0)
-			{
-				break;
-			}
-		}
+	// 정복 ( Conquer ) : 나누어진 문제를 재귀적으로 해결해서 나누어진 문제를 
+	//					  더 이상 나누어서 문제가 필요없을 때 까지 계속 분할 합니다.
 
-		if (j == i)
-		{
-			cout << arr[i] << endl;
-		}
+	// 통합 (Conbine) : 나누어서 해결한 문제들을 통합해서 원래 문제의 해답을 생성합니다.
 
-	}*/
-#pragma endregion
-
-#pragma region 에라토스테네스의 체 2
-
-	sieve(16);
 
 #pragma endregion
+
+	int arr[] = {20, 15, 99, 1};
+
+	max(arr, 0, (sizeof(arr) / sizeof(arr[0])));
 
 	return 0;
 }
