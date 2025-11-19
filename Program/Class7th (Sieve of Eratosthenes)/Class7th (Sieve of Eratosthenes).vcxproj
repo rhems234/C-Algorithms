@@ -24,6 +24,7 @@
     <ProjectGuid>{9694ea92-07e4-453c-be21-d37b918e439e}</ProjectGuid>
     <RootNamespace>Class7thSieveofEratosthenes</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Class 7th (Sieve of Eratosthenes)</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
