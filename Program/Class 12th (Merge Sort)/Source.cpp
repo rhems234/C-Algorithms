@@ -1,40 +1,92 @@
-ï»¿#include <iostream>
+#include <iostream>
 
 using namespace std;
 
-int Fibonacci(int n) 
+void combine(int list[], int start, int middle, int end)
 {
-	if (n <= 2)
+	int* newcontainer = new int[end - start + 1];
+	int count = 0;
+
+	int left = start;
+	int right = middle + 1;
+
+	while (left <= middle && right <= end)
 	{
-		return;
+		if (list[left] <= list[right])
+		{
+			newcontainer[count] = list[left++];
+		}
+		else
+		{
+			newcontainer[count] = list[right++];
+		}
 	}
 
+	while (left <= middle)
+	{
+		newcontainer[count++] = list[left++];
+	}
+
+	while (right <= end)
+	{
+		newcontainer[count++] = list[right++];
+	}
+
+	for (int i = 0; i < end - start + 1; i++)
+	{
+		list[start + i] = newcontainer[i];
+
+	}
+
+
+	delete[] newcontainer;
+
+}
+
+void merge_sort(int list[], int start, int end)
+{
+
+	if (start < end)
+	{
+		int middle = (start + end) / 2;
+
+		merge_sort(list, start, middle);
+
+		merge_sort(list, middle + 1, end);
+
+		combine(list, start, middle, end);
+	}
 
 }
 
 int main()
 {
-#pragma region ë™ì  ê³„íšë²•
-	// í•˜ë‚˜ì˜ í° ë¬¸ì œë¥¼ ì—¬ëŸ¬ ê°œì˜ ìž‘ì€ ë¬¸ì œë¡œ ë‚˜ëˆ„ì–´ì„œ ê·¸ ê²°ê³¼ë¥¼
-	// ì €ìž¥í•˜ì—¬ ë‹¤ì‹œ í° ë¬¸ì œë¥¼ í•´ê²°í•  ë•Œ ì‚¬ìš©í•˜ëŠ” ì•Œê³ ë¦¬ì¦˜ ìž…ë‹ˆë‹¤.
+#pragma region º´ÇÕ Á¤·Ä
+	// ÇÏ³ªÀÇ ¸®½ºÆ®¸¦ µÎ °³ÀÇ ±ÕÀÏÇÑ Å©±â·Î ºÐÇÒÇÏ°í ºÐÇÒµÈ
+	// ºÎºÐ ¸®½ºÆ®¸¦ Á¤·ÄÇÑ ´ÙÀ½, µÎ °³ÀÇ Á¤·ÄµÈ ºÎºÐ ¸®½ºÆ®¸¦
+	// ÇÕÇÏ¿© ÀüÃ¼°¡ Á¤·ÄµÈ ¸®½ºÆ®°¡ µÇ°Ô ÇÏ´Â ¹æ¹ýÀÔ´Ï´Ù.
 
-	// ê²¹ì¹˜ëŠ” ë¶€ë¶„ ë¬¸ì œ ( Overlapping Subproblems )
-	// ë™ì¼í•œ ìž‘ì€ ë¬¸ì œë“¤ì´ ë°˜ë³µí•˜ì—¬ ë‚˜íƒ€ë‚˜ëŠ” ê²½ìš°ë¥¼ ì˜ë¯¸í•©ë‹ˆë‹¤.
+	// 1. ¸®½ºÆ®ÀÇ ±æÀÌ°¡ 0 ¶Ç´Â 1ÀÌ µÇ¸é ÀÌ¹Ì Á¤·ÄµÈ °ÍÀ¸·Î º¾´Ï´Ù.
 
-	// ìµœì  ë¶€ë¶„ êµ¬ì¡° ( Optimal Substructure )
-	// ë¶€ë¶„ ë¬¸ì œì˜ ìµœì  ê²°ê³¼ ê°’ì„ ì‚¬ìš©í•˜ì—¬ ì „ì²´ ë¬¸ì œì˜ ìµœì ì˜
-	// ê²°ê³¼ë¥¼ ë‚¼ ìˆ˜ ìžˆëŠ” ê²½ìš°ë¥¼ ì˜ë¯¸í•©ë‹ˆë‹¤.
+	// 2. ±×·¸Áö ¾ÊÀº °æ¿ì
+	// 2-1. Á¤·ÄµÇÁö ¾ÊÀº ¸®½ºÆ®¸¦ Àý¹ÝÀ¸·Î Àß¶ó ºñ½ÁÇÑ Å©±âÀÇ
+	//		µÎ ºÎºÐ ¸®½ºÆ®·Î ³ª´¯´Ï´Ù.
 
-	// ë©”ëª¨ì´ì œì´ì…˜ ( Memoization )
-	// í”„ë¡œê·¸ëž¨ì´ ë™ì¼í•œ ê³„ì‚°ì„ ë°˜ë³µí•´ì•¼í•  ë•Œ, ì´ì „ì— ê³„ì‚°í•œ ê°’ì„
-	// ë©”ëª¨ë¦¬ì— ì €ìž¥í•¨ìœ¼ë¡œì¨ ë™ì¼í•œ ê³„ì‚°ì„ ë°˜ë³µ ìˆ˜í–‰í•˜ëŠ” ìž‘ì—…ì„
-	// ì œê±°í•˜ì—¬ í”„ë¡œê·¸ëž¨ì˜ ì‹¤í–‰ ì†ë„ë¥¼ í–¥ìƒì‹œí‚¤ëŠ” ë°©ë²• ìž…ë‹ˆë‹¤.
+	// 2-2. °¢ ºÎºÐ ¸®½ºÆ®¸¦ Àç±ÍÀûÀ¸·Î ÇÕº´ Á¤·ÄÀ» ÀÌ¿ëÇÏ¿© Á¤·ÄÇÕ´Ï´Ù.
+
+	// 2-3. µÎ ºÎºÐ ¸®½ºÆ®¸¦ ´Ù½Ã ÇÏ³ªÀÇ Á¤·ÄµÈ ¸®½ºÆ®·Î º´ÇÕÇÕ´Ï´Ù.
+
+	int list[] = { 3, 5, 2, 7, 4, 1, 8, 6 };
+	int size = sizeof(list) / sizeof(list[0]);
+
+	merge_sort(list, 0, size - 1);
+
+	for (const int& element : list)
+	{
+		cout << element << " ";
+	}
 
 #pragma endregion
-
-	int n = 0;
-
-	Fibonacci(5);
 
 	return 0;
 }
