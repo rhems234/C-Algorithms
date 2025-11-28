@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -8,28 +10,67 @@ template <typename T>
 class Graph
 {
 private:
-	int degree;
-	T vertices;
+	unordered_map <T, int> degree;
+	unordered_set <T> vertices;
 	unordered_map<T, vector<T>> adjacencyList;
 
 public:
 
 	void insert(const T& i, const T& j)
 	{
-		if (adjacencyList.find(i) == adjacencyList.end())
-		{
-			vertices++;
-		}
-		else if (adjacencyList.find(j) == adjacencyList.end())
-		{
-			vertices++;
-		}
 
 		adjacencyList[i].push_back(j);
-		adjacencyList[j].push_back(i);
 
-		degree++;
+		degree[j]++;
 
+		vertices.insert(i);
+		vertices.insert(j);
+
+		if (degree.count(i) == false)
+		{
+			degree[i] = 0;
+		}
+
+	}
+
+	void Sort()
+	{
+		queue<T> queue;
+
+		for (const T& v : vertices)
+		{
+			if (degree[v] == 0)
+			{
+				queue.push(v);
+			}
+		}
+
+		int count = 0;
+
+		while (!queue.empty())
+		{
+			T current = queue.front();
+			queue.pop();
+
+			cout << current << " ";
+
+			count++;
+
+			for (const T& element : adjacencyList[current])
+			{
+				degree[element]--;
+
+				if (degree[element] == 0)
+				{
+					queue.push(element);
+				}
+			}
+		}
+
+		if (vertices.size() != count)
+		{
+			cout << "cycle has occurred" << endl;
+		}
 	}
 
 };
@@ -58,7 +99,18 @@ int main()
 
 	Graph<int> graph;
 
-	graph(1, 2);
+	graph.insert(1, 2);
+	graph.insert(1, 5);
+
+	graph.insert(2, 3);
+	graph.insert(3, 4);
+
+	graph.insert(4, 6);
+
+	graph.insert(5, 6);
+	graph.insert(6, 7);
+
+	graph.Sort();
 
 #pragma endregion
 
