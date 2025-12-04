@@ -1,19 +1,2 @@
 ﻿  Program.cpp
-C:\Users\user\Desktop\C-Algorithms\Program\Program\Program.cpp(6,9): warning C4005: 'INFINITY': 매크로 재정의
-      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\corecrt_math.h(94,9):
-      'INFINITY'의 이전 정의를 참조하십시오.
-  
-C:\Users\user\Desktop\C-Algorithms\Program\Program\Program.cpp(27,21): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-      C:\Users\user\Desktop\C-Algorithms\Program\Program\Program.cpp(27,21):
-      템플릿 인스턴스화 컨텍스트(가장 오래된 인스턴스화 컨텍스트)가
-          C:\Users\user\Desktop\C-Algorithms\Program\Program\Program.cpp(142,16):
-          컴파일되는 클래스 템플릿 인스턴스화 'Dijkstra<int>'에 대한 참조를 확인하세요.
-          C:\Users\user\Desktop\C-Algorithms\Program\Program\Program.cpp(21,7):
-          클래스 템플릿 멤버 함수 'void Dijkstra<int>::resize(int)'을(를) 컴파일하는 중입니다.
-              C:\Users\user\Desktop\C-Algorithms\Program\Program\Program.cpp(51,9):
-              'Dijkstra<int>::insert'에서 'Dijkstra<int>::resize'에 대한 첫 번째 참조를 확인하세요.
-              C:\Users\user\Desktop\C-Algorithms\Program\Program\Program.cpp(144,17):
-              'main'에서 'Dijkstra<int>::insert'에 대한 첫 번째 참조를 확인하세요.
-  
-C:\Users\user\Desktop\C-Algorithms\Program\Program\Program.cpp(104,1): warning C4172: 지역 변수 또는 임시 : index의 주소를 반환하는 중
   Program.vcxproj -> C:\Users\user\Desktop\C-Algorithms\Program\x64\Debug\Program.exe
